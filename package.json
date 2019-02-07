@@ -13,6 +13,7 @@
   "license": "MIT",
   "dependencies": {
     "@iarna/rtf-to-html": "^1.1.0",
+    "cli-progress": "^2.1.1",
     "directory-tree": "^2.2.1",
     "dotenv": "^6.2.0",
     "image-to-base64": "^2.0.1",
