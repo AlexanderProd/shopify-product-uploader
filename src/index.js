@@ -68,13 +68,11 @@ const main = async () => {
     await createBase64
 
     const htmlDescription = await createHtmlDescription(rtfFile[0])
-    
+
     createProduct({
         "title": name,
         "body_html": htmlDescription,
-        "vendor": "Burton",
-        "product_type": "Snowboard",
-        "images": images
+        "images": images,
     })
   })
 }
