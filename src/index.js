@@ -4,7 +4,6 @@ const Shopify = require('shopify-api-node')
 const image2base64 = require('image-to-base64')
 const rtfToHTML = require('@iarna/rtf-to-html')
 const { createReadStream } = require('fs')
-const { promisify } = require('util')
  
 const DIR = '/Users/alexanderhoerl/Dropbox/H2/Bio Balance/Inhalte_Web/Produkte/Tier/Good\ BEE\ Probiotic'
 const shopify = new Shopify({
