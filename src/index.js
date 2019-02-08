@@ -40,8 +40,10 @@ const countFolders = async tree => {
 const main = async () => {
   const bar = new _cliProgress.Bar({}, _cliProgress.Presets.shades_classic)
   const tree = dirTree(DIR)
+  const foldersToDo = await countFolders(tree)
+  let progress = 0
 
-  await bar.start(await countFolders(tree), 0)
+  await bar.start(foldersToDo, progress)
 
   const mapChildren = Promise.all(
     tree.children.map(async (child, index) => {
@@ -78,7 +80,7 @@ const main = async () => {
           "body_html": htmlDescription,
           "images": images,
       })
-      bar.update(index)
+      bar.update(progress += 1)
     })
   )
   await mapChildren
