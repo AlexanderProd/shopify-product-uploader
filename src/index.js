@@ -6,7 +6,7 @@ const rtfToHTML = require('@iarna/rtf-to-html')
 const { createReadStream } = require('fs')
 const _cliProgress = require('cli-progress')
 
-const DIR = '/Users/alexanderhoerl/Dropbox/H2/Bio Balance/Inhalte_Web/Produkte/Tier/Good\ BEE\ Probiotic'
+const DIR = process.argv[2] || '/Users/alexanderhoerl/Dropbox/H2/Bio Balance/Inhalte_Web/Produkte/Tier/Good\ BEE\ Probiotic'
 const shopify = new Shopify({
   shopName: process.env.SHOP_NAME,
   apiKey: process.env.APIKEY,
@@ -14,6 +14,7 @@ const shopify = new Shopify({
 })
 
 const createHtmlDescription = async rtfFilePath => {
+  if (!rtfFilePath) return
   const outputTemplate = (doc, defaults, content) => (
     content.replace(/\n/, '\n    ')
   )
