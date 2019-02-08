@@ -13,7 +13,7 @@ const shopify = new Shopify({
   password: process.env.PASSWORD,
 })
 
-const createHtmlDescription = async (rtfFilePath) => {
+const createHtmlDescription = async rtfFilePath => {
   const outputTemplate = (doc, defaults, content) => (
     content.replace(/\n/, '\n    ')
   )
@@ -26,27 +26,37 @@ const createHtmlDescription = async (rtfFilePath) => {
   }).catch(err => console.error(err))
 }
 
+const countFolders = async tree => {
+  let count = 0
+  const mapChildren = Promise.all(tree.children.map(child => {
+    if (child.type === 'file') return
+    count += 1
+  }))
+  await mapChildren
+  return count
+}
+
 const main = async () => {
   const bar = new _cliProgress.Bar({}, _cliProgress.Presets.shades_classic)
   const tree = dirTree(DIR)
 
-  await bar.start(2, 0)
+  await bar.start(await countFolders(tree), 0)
 
   const mapChildren = Promise.all(
     tree.children.map(async (child, index) => {
-      if(child.type === 'file') return
+      if (child.type === 'file') return
   
       const name = child.name
       const productImagesPaths = []
       const images = []
       const rtfFile = []
       
-      if(child.children){
+      if (child.children){
         child.children.map(x => {
           if (['.jpeg', '.png', '.jpg'].includes(x.extension)){
             productImagesPaths.push(x.path)
           }
-          if(['.rtf'].includes(x.extension)){
+          if (['.rtf'].includes(x.extension)){
             rtfFile.push(x.path)
           }
         })
