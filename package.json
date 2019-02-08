@@ -1,16 +1,30 @@
 {
   "name": "shopify-product-uploader",
   "version": "1.0.0",
-  "description": "",
+  "description": "This is a CLI app to upload a batch of products to a Shopify store based on a folder structure, image and text files.",
   "main": "src/index.js",
   "scripts": {
     "dev": "nodemon src",
     "start": "node src",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
+  "keywords": [
+    "shopify",
+    "uploader",
+    "batch",
+    "product",
+    "cli",
+    "cli-app"
+  ],
   "author": "Alexander Hoerl <alexander.horl2@live.de>",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AlexanderProd/shopify-product-uploader/issues"
+  },
+  "homepage": "https://github.com/AlexanderProd/shopify-product-uploader",
+  "bin": {
+    "shopify-upload": "src/index.js"
+  },
   "dependencies": {
     "@iarna/rtf-to-html": "^1.1.0",
     "cli-progress": "^2.1.1",
