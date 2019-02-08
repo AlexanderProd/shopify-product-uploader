@@ -11,6 +11,19 @@ $ yarn install
 
 ## Usage
 Just run `yarn start [directory]` inside the downloaded directory.
+
+Create a .env file in the root directory the cloned repository that looks like this with your shops credentials.
+```
+SHOP_NAME=testshop
+APIKEY=123456
+PASSWORD=123456
+``` 
+Every product needs to be inside its own folder where the folder name sets the products name. 
+Images inside of the folder are uploaded as product photos.
+
+A `.rtf` file is uses for the description, formatting will be kept.
+
+Filenames are not important everything is determined based on file extension. 
 ```
 Directory to start in
 |
@@ -25,11 +38,5 @@ Directory to start in
       ├── details.json
       └── description.rtf
 ```
-Every product needs to be inside its own folder where the folder name sets the products name. 
-Images inside of the folder are uploaded as product photos.
-
-A `.rtf` file is uses for the description, formatting will be kept.
-
-Filenames are not important everything is determined based on file extension. 
 
 
