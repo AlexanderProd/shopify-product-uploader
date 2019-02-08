@@ -5,11 +5,12 @@ This is a CLI app to upload a batch of products to a Shopify store based on a fo
 ## Installation
 
 ```
-$ npm install -g shopify-product-uploader
+$ git clone https://github.com/AlexanderProd/shopify-product-uploader
+$ yarn install
 ```
 
 ## Usage
-Just run `shopify-upload` inside a directory that contains a folder structure that looks like this.
+Just run `yarn start [directory]` inside the downloaded directory.
 ```
 Directory to start in
 |
