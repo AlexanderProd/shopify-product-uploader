@@ -5,7 +5,7 @@ const image2base64 = require('image-to-base64')
 const rtfToHTML = require('@iarna/rtf-to-html')
 const { createReadStream } = require('fs')
 const _cliProgress = require('cli-progress')
- 
+
 const DIR = '/Users/alexanderhoerl/Dropbox/H2/Bio Balance/Inhalte_Web/Produkte/Tier/Good\ BEE\ Probiotic'
 const shopify = new Shopify({
   shopName: process.env.SHOP_NAME,
@@ -13,19 +13,17 @@ const shopify = new Shopify({
   password: process.env.PASSWORD,
 })
 
-const createHtmlDescription = (rtfFilePath) => {
+const createHtmlDescription = async (rtfFilePath) => {
   const outputTemplate = (doc, defaults, content) => (
     content.replace(/\n/, '\n    ')
   )
   const options = { template: outputTemplate }
   return new Promise((resolve, reject) => {
     rtfToHTML.fromStream(createReadStream(rtfFilePath), options, (err, html) => {
-      if(err){
-        reject(err)
-      }
+      if(err) reject(err)
       resolve(html)
     })
-  })
+  }).catch(err => console.error(err))
 }
 
 const main = async () => {
@@ -36,14 +34,13 @@ const main = async () => {
 
   const mapChildren = Promise.all(
     tree.children.map(async (child, index) => {
-      if(child.type === 'file'){ return }
+      if(child.type === 'file') return
   
       const name = child.name
       const productImagesPaths = []
       const images = []
       const rtfFile = []
-      const htmlDescription = await createHtmlDescription(rtfFile[0])
-  
+      
       if(child.children){
         child.children.map(x => {
           if (['.jpeg', '.png', '.jpg'].includes(x.extension)){
@@ -54,7 +51,7 @@ const main = async () => {
           }
         })
       }
-  
+      
       const createBase64 = Promise.all(productImagesPaths.map(async (path) => {
         const base64Code = await image2base64(path)
         images.push({
@@ -62,6 +59,8 @@ const main = async () => {
         },)
       }))
       await createBase64
+
+      const htmlDescription = await createHtmlDescription(rtfFile[0])
 
       await shopify.product.create({
           "title": name,
