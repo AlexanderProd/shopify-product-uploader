@@ -6,7 +6,7 @@ const rtfToHTML = require('@iarna/rtf-to-html')
 const { createReadStream, readFile } = require('fs')
 const _cliProgress = require('cli-progress')
 
-const DIR = process.argv[2] || '/Users/alexanderhoerl/Dropbox/H2/Bio Balance/Inhalte_Web/Produkte/Tier/Good\ BEE\ Probiotic'
+const DIR = process.argv[2]
 const shopify = new Shopify({
   shopName: process.env.SHOP_NAME,
   apiKey: process.env.APIKEY,
@@ -39,10 +39,12 @@ const createProductDetails = async jsonFilePath => {
 
 const countFolders = async tree => {
   let count = 0
-  const mapChildren = Promise.all(tree.children.map(child => {
-    if (child.type === 'file') return
-    count += 1
-  }))
+  const mapChildren = Promise.all(
+    tree.children.map(child => {
+      if (child.type === 'file') return
+      count += 1
+    })
+  )
   await mapChildren
   return count
 }
@@ -80,12 +82,14 @@ const main = async () => {
         })
       }
       
-      const createBase64 = Promise.all(productImagesPaths.map(async (path) => {
-        const base64Code = await image2base64(path)
-        images.push({
-          "attachment": base64Code,
-        },)
-      }))
+      const createBase64 = Promise.all(
+        productImagesPaths.map(async (path) => {
+          const base64Code = await image2base64(path)
+          images.push({
+            "attachment": base64Code,
+          },)
+        })
+      )
       await createBase64
 
       const htmlDescription = await createHtmlDescription(rtfFile[0])
