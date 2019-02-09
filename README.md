@@ -6,6 +6,7 @@ This is a CLI app to upload a batch of products to a Shopify store based on a fo
 
 ```
 $ git clone https://github.com/AlexanderProd/shopify-product-uploader
+$ cd shopify-product-uploader
 $ yarn install
 ```
 
