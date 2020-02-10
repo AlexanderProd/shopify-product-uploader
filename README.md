@@ -24,7 +24,7 @@ Images inside of the folder are uploaded as product photos.
 
 A `.rtf` file is used for the description, formatting will be kept.
 
-Filenames are not important everything is determined based on file extension. 
+Filenames are not important, everything is determined based on file extension. 
 ```
 Directory to start in
 |
